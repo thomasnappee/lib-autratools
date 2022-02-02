@@ -3,3 +3,7 @@
 ################################################################################
 
 /.vs/TradingBot
+/Core/bin
+/Core/obj
+/Core.Tests
+/TradingBot.sln
