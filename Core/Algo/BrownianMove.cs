@@ -15,27 +15,27 @@ namespace Core.Algo
     /// </summary>
     public class BrownianMove : IPriceSource
     {
-        private double Mu;
-        private double Sigma;
+        private decimal Mu;
+        private decimal Sigma;
 
-        private double price;
-        private double lastPrice;
+        private decimal price;
+        private decimal lastPrice;
 
         private NormalDistribution NormalDistribution;
 
-        private double initPrice;
+        private decimal initPrice;
 
-        private List<double> prices = new();
+        private List<decimal> prices = new();
 
         public int Time { get; protected set; }
 
-        public double CurrentPrice => price;
-        public double CurrentPriceVariation => price/lastPrice - 1;
+        public decimal CurrentPrice => price;
+        public decimal CurrentPriceVariation => price/lastPrice - 1;
 
 
         public event Action<PriceUpdateEventArgs> PriceUpdate;
 
-        BrownianMove(double initState)
+        BrownianMove(decimal initState)
         {
             initPrice = lastPrice = price = initState;
             NormalDistribution = new NormalDistribution();
@@ -47,8 +47,9 @@ namespace Core.Algo
         /// <param name="initState">Valeur initiale</param>
         /// <param name="mu"></param>
         /// <param name="sigma">Pourcentage de volatilité</param>
-        public BrownianMove(double initState, double mu, double sigma)
+        public BrownianMove(decimal initState, decimal mu, decimal sigma)
         {
+            throw new Exception();
             Mu = mu;
             Sigma = sigma;
 
@@ -69,35 +70,35 @@ namespace Core.Algo
             creader.Read();
             creader.ReadHeader();
 
-            List<double> closes = new List<double>();
+            List<decimal> closes = new List<decimal>();
 
             while (creader.Read())
-                closes.Add(double.Parse(creader.GetField("Close")));
+                closes.Add(decimal.Parse(creader.GetField("Close")));
 
             for(int i = 0; i<closes.Count-1; i++)
             {
                 Mu += (closes.ElementAt(i+1) - closes.ElementAt(i))/ closes.ElementAt(i);
             } Mu /= (closes.Count-1);
 
-            double sum = 0;
+            decimal sum = 0;
 
             for (int i = 0; i < closes.Count - 1; i++)
             {
-                sum += Math.Pow((closes.ElementAt(i + 1) - closes.ElementAt(i)) / closes.ElementAt(i) - Mu, 2);
-            } Sigma = Math.Sqrt(sum/(closes.Count-1));
+//                sum += Math.Pow((closes.ElementAt(i + 1) - closes.ElementAt(i)) / closes.ElementAt(i) - Mu, 2);
+            } //Sigma = Math.Sqrt(sum/(closes.Count-1));
 
             treader.Close();
             treader.Dispose();
             creader.Dispose();
 
             initPrice = lastPrice = price = closes[0];
-            NormalDistribution = new NormalDistribution(Mu, Sigma);
+            //NormalDistribution = new NormalDistribution(Mu, Sigma);
         }
 
-        public double GetNextPrice()
+        public decimal GetNextPrice()
         {
             lastPrice = price;
-            price = initPrice * Math.Exp(Mu - Sigma * Sigma / 2) + Sigma * NormalDistribution.Generate();
+            //price = initPrice * Math.Exp(Mu - Sigma * Sigma / 2) + Sigma * NormalDistribution.Generate();
             prices.Add(price);
             Time++;
             return price;

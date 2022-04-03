@@ -11,21 +11,17 @@ namespace Core.PriceGenerators
 {
     public class SimplePriceSource : IPriceSource
     {
-        private int index = 0;
-
         PriceUpdateEventArgs priceUpdateEventArgs = new(0);
 
         public event Action<PriceUpdateEventArgs> PriceUpdate;
 
-        public double CurrentPrice { get; protected set; }
-        double IPriceSource.CurrentPrice => Closes[index];
+        public decimal CurrentPrice => Closes[Time];
 
-        public double CurrentPriceVariation { get; protected set; }
-        double IPriceSource.CurrentPriceVariation => throw new NotImplementedException();
+        public decimal CurrentPriceVariation => throw new NotImplementedException();
 
         public int Time { get; protected set; }
 
-        public List<double> Closes { get; set; }
+        public List<decimal> Closes { get; set; }
 
         public bool EndOfFileReached;
 
@@ -34,15 +30,15 @@ namespace Core.PriceGenerators
             TextReader txtReader = new StreamReader(path);
             CsvReader reader = new(txtReader, new CultureInfo("en-US"));
 
-            Closes = new List<double>();
+            Closes = new List<decimal>();
 
             reader.Read();
             reader.ReadHeader();
             string val;
             while (reader.Read())
             {
-                val = reader.GetField("Close").Replace(".", ",");
-                if(double.TryParse(val, out var value))
+                val = reader.GetField("close").Replace(".", ",");
+                if(decimal.TryParse(val, out var value))
                 {
                     Closes.Add(value);
                 }
@@ -51,27 +47,23 @@ namespace Core.PriceGenerators
             txtReader.Close();
             Time = 0;
         }
-        public double ProcessNextPrice()
+        public decimal ProcessNextPrice()
         {
             if (++Time == Closes.Count)
             {
                 Time = 0;
                 EndOfFileReached = true;
             }
-            var realCurrentPrice = Closes.ElementAt(Time);
-            CurrentPriceVariation = realCurrentPrice / CurrentPrice - 1;
-            CurrentPrice = realCurrentPrice;
 
-            priceUpdateEventArgs.NewPrice = realCurrentPrice;
+            priceUpdateEventArgs.NewPrice = CurrentPrice;
             PriceUpdate?.Invoke(priceUpdateEventArgs);
 
-            return realCurrentPrice;
+            return CurrentPrice;
         }
 
         public void ResetTime()
         {
             Time = 0;
-            CurrentPrice = 0;
             EndOfFileReached = false;
         }
     }

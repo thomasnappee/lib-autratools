@@ -8,7 +8,7 @@ namespace Core.EventArgs
 {
     public class ClosePositionUpdateEventArgs : PortfolioUpdateEventArgs
     {
-        public double Profit { get; set; }
-        public double PositionSize { get; set; }
+        public decimal Profit { get; set; }
+        public decimal PositionSize { get; set; }
     }
 }

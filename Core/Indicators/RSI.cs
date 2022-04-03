@@ -6,14 +6,14 @@ using System.Linq;
 
 namespace Core.Indicators
 {
-    public class RSI : ITechnicalIndicator<double>
+    public class RSI : ITechnicalIndicator<decimal>
     {
-        public double Value { get; private set; }
+        public decimal Value { get; private set; }
 
-        public event Action<double> ValueChanged;
+        public event Action<decimal> ValueChanged;
 
-        RotationList<double> rises;
-        RotationList<double> falls;
+        RotationList<decimal> rises;
+        RotationList<decimal> falls;
 
 
         public RSI(int period, IPriceSource priceGenerator)

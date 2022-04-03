@@ -11,9 +11,9 @@ namespace Core.Class
     public class Order : IOrder
     {
         public PositionSide Side { get; }
-        public double EntryPrice { get; }
-        public double Quantity { get; }
-        public Order(PositionSide side, double entryPrice, double quantity)
+        public decimal EntryPrice { get; }
+        public decimal Quantity { get; }
+        public Order(PositionSide side, decimal entryPrice, decimal quantity)
         {
             Side = side;
             EntryPrice = entryPrice;

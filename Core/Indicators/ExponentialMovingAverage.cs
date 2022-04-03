@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace Core.Indicators
 {
-    public class ExponentialMovingAverage : ITechnicalIndicator<double>
+    public class ExponentialMovingAverage : ITechnicalIndicator<decimal>
     {
-        private RotationList<double> prices;
+        private RotationList<decimal> prices;
 
-        private double alpha;
+        private decimal alpha;
 
-        public double Value { get; private set; }
+        public decimal Value { get; private set; }
 
-        public event Action<double> ValueChanged;
+        public event Action<decimal> ValueChanged;
 
         public ExponentialMovingAverage(int period, IPriceSource priceGenerator)
         {
@@ -30,7 +30,7 @@ namespace Core.Indicators
         {
             prices.Add(obj.NewPrice);
             Value = 0;
-            double coef = alpha;
+            decimal coef = alpha;
             for(int i = prices.Count - 1; i >= 0; i--)
             {
                 Value += coef * prices[0];

@@ -1,32 +1,42 @@
-﻿namespace Core.PriceActionDetectors
+﻿using Core.EventArgs;
+using System;
+using System.Collections.Generic;
+
+namespace Core.PriceActionDetectors
 {
     public class TrendDetector
     {
-        private double lastHigh;
-        private double lastLow;
-        private double lastLastHigh;
-        private double lastLastLow;
-        private double lastPrice;
+        private decimal lastHigh;
+        private decimal lastLow;
+        private decimal lastLastHigh;
+        private decimal lastLastLow;
+        private decimal lastPrice;
         private int currentState;
+
+        public event Action<int> StateChanged;
+
+        private List<decimal> lastHighs = new();
+        private List<decimal> lastLows = new();
 
         public string Text => currentState == 3 ? $"{(int)lastLastLow} {(int)lastLastHigh} {(int)lastLow} {(int)lastHigh}" : currentState == 4 ? $"{(int)lastLastHigh} {(int)lastLastLow} {(int)lastHigh} {(int)lastLow}" : "";
 
         public int State => currentState;
 
-        private void ResetLastValues(double value)
+        private void ResetLastValues(decimal value)
         {
             lastHigh = lastLow = lastLastHigh = lastLastLow = value;
         }
 
-        public int Process(double price)
+        public void OnPriceUpdate(PriceUpdateEventArgs e)
         {
-            currentState = ExecuteStep(price);
-            lastPrice = price;
-            return currentState;
+            var price = e.NewPrice;
+
+
         }
 
-        private int ExecuteStep(double price)
+        public void OnPriceUpdateObsolete(PriceUpdateEventArgs e)
         {
+            var price = e.NewPrice;
             switch (currentState)
             {
                 // Si je suis à l'état initial
@@ -38,7 +48,7 @@
                         lastHigh = price;
 
                         // Je suis à l'état 1er nouveau plus haut
-                        return 1;
+                        StateChanged?.Invoke(1);
                     }
 
                     // Si le prix fait un nouveau plus bas
@@ -46,15 +56,16 @@
                     {
                         lastLow = price;
                         // Je suis à l'état 1er nouveau plus bas
-                        return 2;
+                        StateChanged?.Invoke(2);
                     }
 
                     // Sinon
                     else
                     {
                         // L'état ne change pas
-                        return currentState;
+                        StateChanged?.Invoke(currentState);
                     }
+                    break;
 
                 // Si je suis à au premier nouveau plus haut
                 case 1:
@@ -64,7 +75,7 @@
                         if (price < lastHigh)
                         {
                             lastLow = price;
-                            return currentState;
+                            StateChanged?.Invoke(currentState);
                         }
 
                         else if (price > lastHigh)
@@ -72,21 +83,21 @@
                             lastLastHigh = lastHigh;
                             lastLastLow = lastLow;
                             lastHigh = price;
-                            return 3;
+                            StateChanged?.Invoke(3);
                         }
 
                         else
                         {
-                            return currentState;
+                            StateChanged?.Invoke(currentState);
                         }
                     }
 
                     else
                     {
                         ResetLastValues(price);
-                        return 5;
+                        StateChanged?.Invoke(5);
                     }
-
+                    break;
 
                 // Si je suis à l'état premier nouveau plus bas
                 case 2:
@@ -96,7 +107,7 @@
                         if (price > lastLow)
                         {
                             lastHigh = price;
-                            return currentState;
+                            StateChanged?.Invoke(currentState);
                         }
 
                         else if (price < lastLow)
@@ -104,12 +115,12 @@
                             lastLastLow = lastLow;
                             lastLastHigh = lastHigh;
                             lastLow = price;
-                            return 4;
+                            StateChanged?.Invoke(4);
                         }
 
                         else
                         {
-                            return currentState;
+                            StateChanged?.Invoke(currentState);
                         }
                     }
 
@@ -117,8 +128,9 @@
                     else
                     {
                         ResetLastValues(price);
-                        return 5;
+                        StateChanged?.Invoke(5);
                     }
+                    break;
 
                 // Si je suis à l'état deuxième nouveau plus haut
                 case 3:
@@ -126,13 +138,13 @@
                     if (price < lastLastHigh)
                     {
                         ResetLastValues(price);
-                        return 5;
+                        StateChanged?.Invoke(5);
                     }
 
-                    else if(price < lastHigh)
+                    else if (price < lastHigh)
                     {
                         lastLow = price;
-                        return currentState;
+                        StateChanged?.Invoke(currentState);
                     }
 
                     else if (price > lastHigh)
@@ -140,13 +152,14 @@
                         lastLastHigh = lastHigh;
                         lastLastLow = lastLow;
                         lastHigh = price;
-                        return currentState;
+                        StateChanged?.Invoke(currentState);
                     }
 
                     else
                     {
-                        return currentState;
+                        StateChanged?.Invoke(currentState);
                     }
+                    break;
 
                 // Si je suis à l'état deuxième nouveau plus bas
                 case 4:
@@ -154,13 +167,13 @@
                     if (price > lastLastLow)
                     {
                         ResetLastValues(price);
-                        return 5;
+                        StateChanged?.Invoke(5);
                     }
 
-                    else if(price > lastLow)
+                    else if (price > lastLow)
                     {
                         lastHigh = price;
-                        return currentState;
+                        StateChanged?.Invoke(currentState);
                     }
 
                     else if (price < lastLow)
@@ -168,23 +181,27 @@
                         lastLastLow = lastLow;
                         lastLastHigh = lastHigh;
                         lastLow = price;
-                        return currentState;
+                        StateChanged?.Invoke(currentState);
                     }
 
                     else
                     {
-                        return currentState;
+                        StateChanged?.Invoke(currentState);
                     }
-                
-                case 5 :
-                    return 0;
+                    break;
+
+                case 5:
+                    StateChanged?.Invoke(0);
+                    break;
 
                 default:
-                    return currentState;
+                    StateChanged?.Invoke(currentState);
+                    break;
             }
+            lastPrice = price;
         }
 
-        public TrendDetector(double init)
+        public TrendDetector(decimal init)
         {
             this.Init(init);
         }
@@ -193,7 +210,7 @@
         {
         }
 
-        public void Init(double init)
+        public void Init(decimal init)
         {
             this.lastLastHigh = init;
             this.lastLastLow = init;

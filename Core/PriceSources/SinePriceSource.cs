@@ -7,8 +7,8 @@ namespace Core.PriceGenerators
     class SinePriceSource : IPriceSource
     {
         public event Action<PriceUpdateEventArgs> PriceUpdate;
-        public double CurrentPrice { get; protected set; }
-        public double CurrentPriceVariation { get; protected set; }
+        public decimal CurrentPrice { get; protected set; }
+        public decimal CurrentPriceVariation { get; protected set; }
         public int Time { get; protected set; }
 
         private int period;
@@ -19,10 +19,11 @@ namespace Core.PriceGenerators
             Time = 0;
         }
 
-        public double GetNextPrice()
+        public decimal GetNextPrice()
         {
-            CurrentPrice = 100 + 10 * Math.Cos(2 * Math.PI * Time / period);
-            CurrentPriceVariation = -(10 / period) * Math.Sin(2 * Math.PI * Time / period);
+            throw new Exception();
+            //CurrentPrice = 100.0 + 10 * Math.Cos(2 * Math.PI * Time / period);
+            //CurrentPriceVariation = -(10 / period) * Math.Sin(2 * Math.PI * Time / period);
             Time++;
             PriceUpdate?.Invoke(new PriceUpdateEventArgs(CurrentPrice));
 

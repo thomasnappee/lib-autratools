@@ -10,24 +10,24 @@ namespace Core.Proxies
         public OrderProxy(BinanceFuturesOrder binanceFuturesOrder)
         {
             Side = binanceFuturesOrder.Side == OrderSide.Buy ? PositionSide.Buy : PositionSide.Sell;
-            EntryPrice = (double) binanceFuturesOrder.Price;
-            StopPrice = (double) (binanceFuturesOrder.StopPrice ?? 0);
+            EntryPrice = (decimal) binanceFuturesOrder.Price;
+            StopPrice = (decimal) (binanceFuturesOrder.StopPrice ?? 0);
             HasStopLoss = StopPrice != 0;
             HasStopLimit = false;
             LimitPrice = 0;
-            Quantity = (double) binanceFuturesOrder.Quantity;
-            QuantityFilled = (double) binanceFuturesOrder.QuantityFilled;
+            Quantity = (decimal) binanceFuturesOrder.Quantity;
+            QuantityFilled = (decimal) binanceFuturesOrder.QuantityFilled;
         }
 
         public PositionSide Side { get; }
-        public double EntryPrice { get; }
+        public decimal EntryPrice { get; }
         public bool HasStopLoss { get; }
-        public double StopPrice { get; }
+        public decimal StopPrice { get; }
         public bool HasStopLimit { get; }
-        public double LimitPrice { get; }
-        public double Quantity { get; }
+        public decimal LimitPrice { get; }
+        public decimal Quantity { get; }
         
-        public double QuantityFilled { get; }
+        public decimal QuantityFilled { get; }
 
         public IOrder StopLimitOrder => throw new System.NotImplementedException();
 

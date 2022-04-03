@@ -2,8 +2,8 @@
 {
     public class TransactionWalletUpdateEventArgs : PortfolioUpdateEventArgs
     {
-        public double Value { get; }
+        public decimal Value { get; }
 
-        public TransactionWalletUpdateEventArgs(double value) => Value = value;
+        public TransactionWalletUpdateEventArgs(decimal value) => Value = value;
     }
 }

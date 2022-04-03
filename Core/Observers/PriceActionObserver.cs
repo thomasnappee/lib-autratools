@@ -9,7 +9,7 @@ namespace Core.Observers
 {
     public class PriceActionObserver
     {
-        private List<double> prices = new List<double>();
+        private List<decimal> prices = new List<decimal>();
         public event Action<PriceActionState> StateUpdate;
 
         private TrendDetector trendDetector = new();
@@ -24,10 +24,10 @@ namespace Core.Observers
         private bool isUpTrend = false;
         private bool isDownTrend = false;
 
-        public double LastHigherLow => this.extremumTrendDetector.c;
+        public decimal LastHigherLow => this.extremumTrendDetector.c;
 
-        public IEnumerable<double> LastBuyLevels => levels;
-        private Stack<double> levels = new();
+        public IEnumerable<decimal> LastBuyLevels => levels;
+        private Stack<decimal> levels = new();
         private IPriceSource priceSource;
 
         public PriceActionObserver(IPriceSource priceSource)
@@ -39,7 +39,6 @@ namespace Core.Observers
         public void OnPriceUpdate(PriceUpdateEventArgs e)
         {
             this.prices.Add(e.NewPrice);
-            this.trendDetector.Process(e.NewPrice);
             
             if(this.volatilityDetector.Process(e.NewPrice) == 0)
             {

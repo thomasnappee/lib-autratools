@@ -50,7 +50,11 @@
             },
             "Binance.Net": {
               "target": "Package",
-              "version": "[7.2.5, )"
+              "version": "[7.2.7, )"
+            },
+            "Bitmex.Client.Websocket": {
+              "target": "Package",
+              "version": "[3.1.82, )"
             },
             "Combinatorics": {
               "target": "Package",
@@ -58,11 +62,19 @@
             },
             "CsvHelper": {
               "target": "Package",
-              "version": "[27.1.1, )"
+              "version": "[27.2.1, )"
             },
-            "Microsoft.EntityFrameworkCore": {
+            "MathNet.Numerics": {
               "target": "Package",
-              "version": "[5.0.11, )"
+              "version": "[4.15.0, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[2.10.0, )"
+            },
+            "Serilog.Sinks.Console": {
+              "target": "Package",
+              "version": "[4.0.1, )"
             }
           },
           "imports": [
@@ -124,6 +136,14 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Bitmex.NET": {
+              "target": "Package",
+              "version": "[2.0.99, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[2.10.0, )"
+            },
             "Unity": {
               "target": "Package",
               "version": "[5.11.10, )"

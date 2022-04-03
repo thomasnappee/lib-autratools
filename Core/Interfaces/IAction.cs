@@ -8,6 +8,6 @@ namespace Core.Interfaces
     {
         int Id { get; set; }
         int Code { get; }
-        double Reward { get; }
+        decimal Reward { get; }
     }
 }

@@ -7,8 +7,8 @@ namespace Core.Interfaces
     {
         PositionSide Side { get; }
 
-        double EntryPrice { get; }
+        decimal EntryPrice { get; }
 
-        double Quantity { get; }
+        decimal Quantity { get; }
     }
 }

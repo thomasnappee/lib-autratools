@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Bitmex.NET" Version="2.0.99" />
+    <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="Unity" Version="5.11.10" />
   </ItemGroup>
 
@@ -33,6 +35,12 @@
     </None>
     <None Update="datas\CreditAgricole.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="datas\EURUSD.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="datas\IT10Y-DE10Y.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="datas\Microstrategy.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

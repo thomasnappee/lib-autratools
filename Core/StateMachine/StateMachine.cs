@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Accord.IO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Accord;
-using Accord.IO;
-using Accord.Statistics.Kernels;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace Core.StateMachine
 {

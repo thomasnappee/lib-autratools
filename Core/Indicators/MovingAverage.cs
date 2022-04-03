@@ -6,12 +6,12 @@ using System.Linq;
 
 namespace Core.Indicators
 {
-    public class MovingAverage : ITechnicalIndicator<double>, IDisposable
+    public class MovingAverage : ITechnicalIndicator<decimal>, IDisposable
     {
         /// <summary>
         /// Les derniers prix pour calculer la moyenne
         /// </summary>
-        private RotationList<double> lastPrices;
+        private RotationList<decimal> lastPrices;
 
         /// <summary>
         /// Nombre de valeurs utilisées pour calculer le prix moyen
@@ -26,14 +26,14 @@ namespace Core.Indicators
         /// <summary>
         /// La valeur actuelle de l'indicateur
         /// </summary>
-        public double Value { get; protected set;}
+        public decimal Value { get; protected set;}
 
         /// <summary>
         /// La variation de l'indicateur
         /// </summary>
-        public double ValueVariation { get; protected set;}
+        public decimal ValueVariation { get; protected set;}
 
-        public event Action<double> ValueChanged;
+        public event Action<decimal> ValueChanged;
 
         public MovingAverage(int period, IPriceSource priceGenerator)
         {
@@ -42,6 +42,7 @@ namespace Core.Indicators
             this.period = period;
             this.priceGenerator = priceGenerator;
             this.priceGenerator.PriceUpdate += this.OnPriceUpdate;
+            this.Value = priceGenerator.CurrentPrice;
         }
 
         /// <summary>
@@ -54,10 +55,10 @@ namespace Core.Indicators
             ValueChanged?.Invoke(Value);
         }
 
-        private void Compute(double price)
-        {
+        private void Compute(decimal price)
+        {            
             lastPrices.Add(price);
-            double newValue = lastPrices.Sum() / period;
+            decimal newValue = lastPrices.Sum() / period;
             ValueVariation = (newValue - Value) / Value;
             Value = newValue;
         }

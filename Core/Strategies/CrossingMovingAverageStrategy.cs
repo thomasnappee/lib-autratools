@@ -53,19 +53,19 @@ namespace Core.Strategies
         /// Le paramètre est 1 si ma1 > ma2, 0 si inférieur ou égal
         /// </summary>
         /// <param name="obj"></param>
-        private void OnMa1ValueChanged(double value)
+        private void OnMa1ValueChanged(decimal value)
         {
             ma1Changed = true;
             if (ma1Changed && ma2Changed) OnValueChanged(value);
         }
 
-        private void OnMa2ValueChanged(double value)
+        private void OnMa2ValueChanged(decimal value)
         {
             ma2Changed = true;
             if (ma1Changed && ma2Changed) OnValueChanged(value);
         }
 
-        private void OnValueChanged(double obj)
+        private void OnValueChanged(decimal obj)
         {
             ma1Changed = ma2Changed = false;
 

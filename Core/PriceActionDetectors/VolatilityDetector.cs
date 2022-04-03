@@ -11,14 +11,14 @@ namespace Core.PriceActionDetectors
         private int currentState;
         public int State => currentState;
 
-        private double average_period = 20;
-        private List<double> averages = new();
-        private double lastPrice;
-        private double last_average;
+        private decimal average_period = 20;
+        private List<decimal> averages = new();
+        private decimal lastPrice;
+        private decimal last_average;
 
         private List<int> bools = new();
 
-        public int Process(double price)
+        public int Process(decimal price)
         {
             averages.Add((price / lastPrice - 1)*100);
             if (averages.Count > average_period) averages.RemoveAt(0);
@@ -36,7 +36,7 @@ namespace Core.PriceActionDetectors
 
             last_average = average;
 
-            if(bools.Sum() / average_period > 0.3)
+            if(bools.Sum() / average_period > 0.3M)
             {
                 return 1;
             }
@@ -44,7 +44,7 @@ namespace Core.PriceActionDetectors
             return 0;
         }
 
-        public VolatilityDetector(double init)
+        public VolatilityDetector(decimal init)
         {
             currentState = 0;
             lastPrice = init;

@@ -10,14 +10,14 @@ namespace Core.PriceActionDetectors
 {
     public class VariationDetector
     {
-        private Dictionary<(double,double), int> p;
-        private double lastPrice;
-        private double lastVar;
-        private double coef;
+        private Dictionary<(decimal,decimal), int> p;
+        private decimal lastPrice;
+        private decimal lastVar;
+        private decimal coef;
 
-        public event Action<KeyValuePair<(double,double), int>> StateChanged;
+        public event Action<KeyValuePair<(decimal,decimal), int>> StateChanged;
 
-        public VariationDetector(IPriceSource priceSource, double precision)
+        public VariationDetector(IPriceSource priceSource, decimal precision)
         {
             coef = 1 / precision;
             priceSource.PriceUpdate += OnPriceUpdate;

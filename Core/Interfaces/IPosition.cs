@@ -14,15 +14,15 @@ namespace Core.Interfaces
         /// </summary>
         public IOrder Order { get; }
 
-        public double Variation { get; }
+        public decimal Variation { get; }
 
         public PositionSide Side { get; }
 
-        public double PositionCost { get; }
+        public decimal PositionCost { get; }
 
-        public double Profit { get; }
+        public decimal Profit { get; }
 
-        public double ComputeProfit(double currentPrice);
+        public decimal ComputeProfit(decimal currentPrice);
 
         public event Action<PositionUpdateEventArgs> PositionUpdate;
 

@@ -10,7 +10,7 @@ namespace Core.OrderManagers
 {
     public class BacktestOrderManager : IOrderManager
     {
-        private double lastPrice;
+        private decimal lastPrice;
 
         private IPortfolioManager portfolioManager;
 
@@ -31,7 +31,7 @@ namespace Core.OrderManagers
 
         private SortedSet<IOrder> orders { get; }
 
-        public double Profit => Positions.Sum(p => p.Profit);
+        public decimal Profit => Positions.Sum(p => p.Profit);
 
         public void CloseAllOrders()
         {
@@ -60,7 +60,7 @@ namespace Core.OrderManagers
         /// <summary>
         /// <inheritdoc cref="IPosition"/>
         /// </summary>
-        public double CloseAllPositions()
+        public decimal CloseAllPositions()
         {
             if (Positions.Count == 0) return 0;
 
@@ -74,7 +74,7 @@ namespace Core.OrderManagers
 
             return profits;
         }
-
+       
         /// <summary>
         /// <inheritdoc cref="IPosition"/>
         /// </summary>
@@ -103,10 +103,10 @@ namespace Core.OrderManagers
         /// <summary>
         /// <inheritdoc cref="IPosition"/>
         /// </summary>
-        public double CloseAllPositions(double closePrice)
+        public decimal CloseAllPositions(decimal closePrice)
         {
-            double sum = 0;
-            double profit;
+            decimal sum = 0;
+            decimal profit;
             foreach (IPosition p in Positions)
             {
                 profit = p.ComputeProfit(closePrice);
@@ -132,9 +132,9 @@ namespace Core.OrderManagers
 
         }
 
-        private void ProcessPositions(double newPrice)
+        private void ProcessPositions(decimal newPrice)
         {
-            double profit;
+            decimal profit;
             foreach(var position in Positions)
             {
                 profit = position.ComputeProfit(newPrice);
@@ -146,25 +146,33 @@ namespace Core.OrderManagers
             }
         }
 
-        public void OpenLongPosition(double quantity)
+        public void OpenLongPosition(decimal quantity)
         {
             OpenPosition(PositionSide.Buy, quantity);
         }
 
-        public void OpenShortPosition(double quantity)
+        public void OpenShortPosition(decimal quantity)
         {
             OpenPosition(PositionSide.Sell, quantity);
         }
 
-        private void OpenPosition(PositionSide side, double quantity)
+        private void OpenPosition(PositionSide side, decimal quantity)
         {
-            var p = new Position(new Order(side, lastPrice, quantity));
-            Positions.Add(p);
-            PositionUpdated?.Invoke(new()
+            try
             {
-                Position = p,
-                State = PositionState.Created,
-            });
+                portfolioManager.Debit(quantity * lastPrice);
+                var p = new Position(new Order(side, lastPrice, quantity));
+                Positions.Add(p);
+                PositionUpdated?.Invoke(new()
+                {
+                    Position = p,
+                    State = PositionState.Created,
+                });
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine($"{e}");
+            }
         }
     }
 }

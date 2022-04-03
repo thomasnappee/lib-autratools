@@ -6,39 +6,36 @@ using System.Linq;
 
 namespace Core.Indicators
 {
-    public class BollingerBands : ITechnicalIndicator<double[]>
+    public class BollingerBands : ITechnicalIndicator<decimal[]>
     {
-        private RotationList<double> prices;
+        private RotationList<decimal> prices;
+        private int v;
 
         /// <summary>
         /// Value[0] => Bande inférieure
         /// Value[1] => Bande centrale
         /// Value[2] => Bande supérieure
         /// </summary>
-        public double[] Value { get; }
+        public decimal[] Value { get; }
 
-        public event Action<double[]> ValueChanged;
+        public event Action<decimal[]> ValueChanged;
 
-        public double Delta { get; }
+        public decimal Delta { get; }
 
-        public BollingerBands(int period, double delta = 2)
+        public BollingerBands(IPriceSource priceSource, int period , decimal delta = 2)
         {
+            priceSource.PriceUpdate += OnPriceUpdate;
             prices = new(period);
-            Value = new double[3];
+            Value = new decimal[3];
             Delta = delta;
-        }
-
-        public BollingerBands(int period, IPriceSource priceGenerator, double delta = 2) : this(period, delta)
-        {
-            priceGenerator.PriceUpdate += OnPriceUpdate;
         }
 
         public void OnPriceUpdate(PriceUpdateEventArgs e)
         {
             prices.Add(e.NewPrice);
             var mu = prices.Sum() / prices.Count;
-            var sigma = Math.Sqrt(
-                prices.Sum(x => Math.Pow(x - mu, 2)
+            var sigma = (decimal)Math.Sqrt(
+                prices.Sum(x => Math.Pow((double)(x - mu), 2)
                 /
                 prices.Count));
 

@@ -14,12 +14,12 @@ namespace Core.Proxies
         }
 
         public IOrder Order { get; set; }
-        public double Variation { get; set; }
+        public decimal Variation { get; set; }
         public PositionSide Side { get; set; }
-        public double PositionCost { get; set; }
-        public double Profit { get; }
+        public decimal PositionCost { get; set; }
+        public decimal Profit { get; }
 
-        public double ComputeProfit(double currentPrice)
+        public decimal ComputeProfit(decimal currentPrice)
         {
             return 0;
         }

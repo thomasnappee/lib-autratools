@@ -22,18 +22,18 @@ namespace Core.Interfaces
         /// Ferme toute les positions
         /// </summary>
         /// <returns>Le profit réalisé</returns>
-        double CloseAllPositions();
+        decimal CloseAllPositions();
 
         /// <summary>
         /// Fait un achat au prix du marché
         /// </summary>
         /// <param name="quantity">La quantité à acheter</param>
-        void OpenLongPosition(double quantity);
+        void OpenLongPosition(decimal quantity);
 
         /// <summary>
         /// Fait une vente à découvert au prix du marché
         /// </summary>
         /// <param name="quantity">La quantité à vendre</param>
-        void OpenShortPosition(double quantity);
+        void OpenShortPosition(decimal quantity);
     }
 }

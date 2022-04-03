@@ -5,11 +5,11 @@ namespace Core.Interfaces
 {
     public interface IPortfolioManager
     {
-        double Balance { get; }
+        decimal Balance { get; }
 
         public event Action<PortfolioUpdateEventArgs> PortfolioUpdate;
 
-        void Debit(double v);
-        void Credit(double v);
+        void Debit(decimal v);
+        void Credit(decimal v);
     }
 }

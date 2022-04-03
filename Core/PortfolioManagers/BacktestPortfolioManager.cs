@@ -8,13 +8,13 @@ namespace Core.PortfolioManagers
 {
     public class BacktestPortfolioManager : IPortfolioManager
     {
-        private double balance = 100000;
+        private decimal balance = 10000;
 
         public event Action<PortfolioUpdateEventArgs> PortfolioUpdate;
 
-        public double Balance => balance;
+        public decimal Balance => balance;
 
-        public void Debit(double v)
+        public void Debit(decimal v)
         {
             if (balance - v < 0) throw new("Crédit insuffisant");
             balance -= v;
@@ -25,7 +25,7 @@ namespace Core.PortfolioManagers
             });
         }
 
-        public void Credit(double v)
+        public void Credit(decimal v)
         {
             balance += v;
             PortfolioUpdate?.Invoke(new PortfolioUpdateEventArgs()

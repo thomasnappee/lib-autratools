@@ -7,8 +7,8 @@ namespace Core.Interfaces
     {
         event Action<PriceUpdateEventArgs> PriceUpdate;
         
-        double CurrentPrice { get; }
+        decimal CurrentPrice { get; }
         
-        double CurrentPriceVariation { get; }
+        decimal CurrentPriceVariation { get; }
     }
 }

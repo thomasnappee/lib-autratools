@@ -2,8 +2,8 @@
 {
     public class PriceUpdateEventArgs : System.EventArgs
     {
-        public double NewPrice { get; set; }
+        public decimal NewPrice { get; set; }
 
-        public PriceUpdateEventArgs(double newPrice) => NewPrice = newPrice;
+        public PriceUpdateEventArgs(decimal newPrice) => NewPrice = newPrice;
     }
 }

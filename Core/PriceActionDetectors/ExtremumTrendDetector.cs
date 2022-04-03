@@ -8,13 +8,13 @@ namespace Core.PriceActionDetectors
 {
     public class ExtremumTrendDetector
     {
-        public double a, b, c;
+        public decimal a, b, c;
 
         private int state = 0;
-        private double[] values = new double[20];
+        private decimal[] values = new decimal[20];
         private int index = 0;
 
-        public int Process(double price, bool useSmoothing = false)
+        public int Process(decimal price, bool useSmoothing = false)
         {
             if (useSmoothing)
             {

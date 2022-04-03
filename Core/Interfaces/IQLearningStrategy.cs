@@ -15,7 +15,7 @@
         public delegate int GetStateDelegate();
         public GetStateDelegate GetState { get; set; }
 
-        public delegate double DoActionDelegate(int action);
+        public delegate decimal DoActionDelegate(int action);
         public DoActionDelegate DoAction { get; set; }
 
     }
