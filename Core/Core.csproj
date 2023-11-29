@@ -1,7 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsing>true</ImplicitUsing>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>Autratools</PackageId>
+    <Authors>tama</Authors>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,4 +22,7 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
   </ItemGroup>
 
+  <Target Name="NugetPackAutoVersioning" AfterTargets="Build">
+    <Exec Command="dotnet pack -p:PackageVersion=$([System.DateTime]::Now.ToString(&quot;yyyy.MM.dd.HHmm&quot;)) --no-build --configuration $(Configuration) --output &quot;nuget&quot;" />
+  </Target>
 </Project>

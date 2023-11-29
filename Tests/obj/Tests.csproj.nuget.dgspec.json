@@ -1,32 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Dell\\Desktop\\_\\Coding\\lib-autratools\\Tests\\Tests.csproj": {}
+    "/home/tama/dev/lib-autratools/Tests/Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Dell\\Desktop\\_\\Coding\\lib-autratools\\Core\\Core.csproj": {
+    "/home/tama/dev/lib-autratools/Core/Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Dell\\Desktop\\_\\Coding\\lib-autratools\\Core\\Core.csproj",
-        "projectName": "Core",
-        "projectPath": "C:\\Users\\Dell\\Desktop\\_\\Coding\\lib-autratools\\Core\\Core.csproj",
-        "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Dell\\Desktop\\_\\Coding\\lib-autratools\\Core\\obj\\",
+        "projectUniqueName": "/home/tama/dev/lib-autratools/Core/Core.csproj",
+        "projectName": "Autratools",
+        "projectPath": "/home/tama/dev/lib-autratools/Core/Core.csproj",
+        "packagesPath": "/home/tama/.nuget/packages/",
+        "outputPath": "/home/tama/dev/lib-autratools/Core/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/tama/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net5.0"
+          "net7.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
+          "net7.0": {
+            "targetAlias": "net7.0",
             "projectReferences": {}
           }
         },
@@ -37,8 +35,8 @@
         }
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "dependencies": {
             "Accord.MachineLearning": {
               "target": "Package",
@@ -83,45 +81,50 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.13, 7.0.13]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.113/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Dell\\Desktop\\_\\Coding\\lib-autratools\\Tests\\Tests.csproj": {
+    "/home/tama/dev/lib-autratools/Tests/Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Dell\\Desktop\\_\\Coding\\lib-autratools\\Tests\\Tests.csproj",
+        "projectUniqueName": "/home/tama/dev/lib-autratools/Tests/Tests.csproj",
         "projectName": "Tests",
-        "projectPath": "C:\\Users\\Dell\\Desktop\\_\\Coding\\lib-autratools\\Tests\\Tests.csproj",
-        "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Dell\\Desktop\\_\\Coding\\lib-autratools\\Tests\\obj\\",
+        "projectPath": "/home/tama/dev/lib-autratools/Tests/Tests.csproj",
+        "packagesPath": "/home/tama/.nuget/packages/",
+        "outputPath": "/home/tama/dev/lib-autratools/Tests/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/tama/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net6.0"
+          "net7.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
+          "net7.0": {
+            "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\Dell\\Desktop\\_\\Coding\\lib-autratools\\Core\\Core.csproj": {
-                "projectPath": "C:\\Users\\Dell\\Desktop\\_\\Coding\\lib-autratools\\Core\\Core.csproj"
+              "/home/tama/dev/lib-autratools/Core/Core.csproj": {
+                "projectPath": "/home/tama/dev/lib-autratools/Core/Core.csproj"
               }
             }
           }
@@ -133,8 +136,8 @@
         }
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "dependencies": {
             "Bitmex.NET": {
               "target": "Package",
@@ -155,16 +158,23 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.13, 7.0.13]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.113/RuntimeIdentifierGraph.json"
         }
       }
     }

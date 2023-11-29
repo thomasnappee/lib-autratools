@@ -79,7 +79,7 @@ public class BotBase : IBot
 
     private void OnBBUpdate(decimal[] obj)
     {
-        OrderManager.PostOrder(new Order(PositionSide.Buy, obj[0], PortfolioManager.Balance / 16));
+        OrderManager.OpenLongPosition(PortfolioManager.Balance / 16);
     }
 
     public void Pause()

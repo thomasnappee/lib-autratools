@@ -4,7 +4,7 @@ using Core.Interfaces;
 
 namespace Core.PriceGenerators
 {
-    class SinePriceSource : IPriceSource
+    public class SinePriceSource : IPriceSource
     {
         public event Action<PriceUpdateEventArgs> PriceUpdate;
         public decimal CurrentPrice { get; protected set; }

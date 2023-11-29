@@ -8,11 +8,16 @@ using System.Threading.Tasks;
 
 namespace Core.Class
 {
-    public class Order : IOrder
+    public class Order : IOrder, IComparable
     {
         public PositionSide Side { get; }
+
         public decimal EntryPrice { get; }
+
         public decimal Quantity { get; }
+
+        public OrderType OrderType { get; }
+
         public Order(PositionSide side, decimal entryPrice, decimal quantity)
         {
             Side = side;

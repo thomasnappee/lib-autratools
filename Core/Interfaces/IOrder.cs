@@ -3,7 +3,7 @@ using System;
 
 namespace Core.Interfaces
 {
-    public interface IOrder : IComparable
+    public interface IOrder
     {
         PositionSide Side { get; }
 

@@ -35,5 +35,11 @@ namespace Core.Interfaces
         /// </summary>
         /// <param name="quantity">La quantité à vendre</param>
         void OpenShortPosition(decimal quantity);
+
+        /// <summary>
+        /// Envoie un ordre
+        /// </summary>
+        /// <param name="order">L'ordre à envoyer</param>
+        void SendOrder(IOrder order);
     }
 }

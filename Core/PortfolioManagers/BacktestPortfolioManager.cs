@@ -2,7 +2,6 @@
 using Core.Enums;
 using Core.EventArgs;
 using Core.Interfaces;
-using Core.OrderManagers;
 
 namespace Core.PortfolioManagers
 {

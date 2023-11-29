@@ -6,7 +6,7 @@ using Core.Enums;
 using Core.EventArgs;
 using System;
 
-namespace Core.OrderManagers
+namespace Core.Orders.OrderManagers
 {
     public class BacktestOrderManager : IOrderManager
     {
@@ -154,6 +154,11 @@ namespace Core.OrderManagers
         public void OpenShortPosition(decimal quantity)
         {
             OpenPosition(PositionSide.Sell, quantity);
+        }
+
+        public void SendOrder(IOrder order)
+        {
+            OpenPosition(order.Side, order.Quantity);
         }
 
         private void OpenPosition(PositionSide side, decimal quantity)
